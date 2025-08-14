@@ -1,15 +1,18 @@
-package dev.milca;
+package dev.milca.Repositories;
 
+import.dev.milca.model.Moment;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class MomentManager {
+public class MomentRepository {
     private List<Moment> moments;
+    private int nextId;
 
-    public MomentManager() {
+    public MomentRepository() {
         this.moments = new ArrayList<>();
+        this.nextId = 1;
     }
 
     //Agregar un nuevo objeto Moment a la lista
