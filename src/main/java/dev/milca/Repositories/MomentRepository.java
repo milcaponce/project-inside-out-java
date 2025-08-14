@@ -1,5 +1,6 @@
 package dev.milca.Repositories;
 
+import dev.milca.mvc.model.Emotion;
 import dev.milca.mvc.model.Moment;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,9 +52,23 @@ public class MomentRepository {
     //Elimina un moment por su Id
     public boolean deleteMomentById(int id) {
         Moment momentToDelete = getMomentById(id);
-        if (momentToDelete ! = null) {
+        if (momentToDelete != null) {
             return this.moments.remove(momentToDelete);
         }
         return false;
+    }
+
+    //Filtrar la lista
+    public List<Moment> filterMomentsByEmotion(String emotion) {
+        List<Moment> filteredList = new ArrayList<>();
+
+        Emotion searchEmotion = Emotion.valueOf(emotion.toUpperCase());
+
+        for (Moment moment : this.moments) {
+            if (moment.getEmotion().equals(searchEmotion)) {
+                filteredList.add(moment);
+            }
+        }
+        return filteredList;
     }
 }
