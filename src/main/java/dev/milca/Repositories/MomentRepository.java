@@ -18,6 +18,7 @@ public class MomentRepository {
     //Agregar un nuevo objeto Moment a la lista
     public void addMoment(Moment moment) {
         if (moment != null) {
+            moment.setId(nextId++);
             this.moments.add(moment);
             
         }
@@ -35,5 +36,24 @@ public class MomentRepository {
         Collections.sort(orderedList, Comparator.comparing(Moment::getDate));
         
         return orderedList; 
+    }
+
+    //Buscar el moment por su ID
+    public Moment getMomentById(int id) {
+        for (Moment moment : this.moments) {
+            if (moment.getId() == id) {
+                return moment;
+            }
+        }
+        return null; 
+    }
+
+    //Elimina un moment por su Id
+    public boolean deleteMomentById(int id) {
+        Moment momentToDelete = getMomentById(id);
+        if (momentToDelete ! = null) {
+            return this.moments.remove(momentToDelete);
+        }
+        return false;
     }
 }
