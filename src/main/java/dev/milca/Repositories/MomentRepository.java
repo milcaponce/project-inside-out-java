@@ -1,0 +1,39 @@
+package dev.milca.Repositories;
+
+import dev.milca.mvc.model.Moment;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class MomentRepository {
+    private List<Moment> moments;
+    private int nextId;
+
+    public MomentRepository() {
+        this.moments = new ArrayList<>();
+        this.nextId = 1;
+    }
+
+    //Agregar un nuevo objeto Moment a la lista
+    public void addMoment(Moment moment) {
+        if (moment != null) {
+            this.moments.add(moment);
+            
+        }
+    }
+
+    //Añadir método getMoments 
+    public List<Moment> getMoments() {
+        return new ArrayList<>(this.moments);
+    }
+
+    //Retorna la lista
+    public List<Moment> getOrderedMomentsByDate() {
+        List<Moment> orderedList = new ArrayList<>(this.moments);
+
+        Collections.sort(orderedList, Comparator.comparing(Moment::getDate));
+        
+        return orderedList; 
+    }
+}
