@@ -1,4 +1,4 @@
-package dev.milca;
+package dev.milca.mvc.model;
 
 import java.time.LocalDate;
 

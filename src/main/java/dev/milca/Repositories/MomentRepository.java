@@ -1,6 +1,6 @@
 package dev.milca.Repositories;
 
-import.dev.milca.model.Moment;
+import dev.milca.mvc.model.Moment;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
