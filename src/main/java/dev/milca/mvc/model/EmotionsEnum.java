@@ -1,5 +1,10 @@
 package dev.milca.mvc.model;
 
-public class EmotionsEnum {
-    
+public enum EmotionsEnum {
+    ALEGRIA,
+    TRISTEZA,
+    ENOJO,
+    CALMA,
+    MIEDO,
+    ASCO
 }

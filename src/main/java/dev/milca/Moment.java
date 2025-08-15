@@ -1,4 +1,4 @@
-package dev.milca.mvc.model;
+package dev.milca;
 
 import java.time.LocalDate;
 
@@ -6,12 +6,12 @@ public class Moment {
     private int id;
     private String title;
     private String description;
-    private EmotionsEnum emotion;
+    private String emotion;
     private LocalDate date;
     private LocalDate creationDate;
     private LocalDate modificationDate;
 
-    public Moment (int id, String title, String description, EmotionsEnum emotion, LocalDate date) {
+    public Moment (int id, String title, String description, String emotion, LocalDate date) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -46,11 +46,11 @@ public class Moment {
         this.modificationDate = LocalDate.now();
     }
 
-    public EmotionsEnum getEmotion() {
+    public String getEmotion() {
         return emotion;
     }
 
-    public void setEmotion (EmotionsEnum emotion) {
+    public void setEmotion (String emotion) {
         this.emotion = emotion;
         this.modificationDate = LocalDate.now();
     }
