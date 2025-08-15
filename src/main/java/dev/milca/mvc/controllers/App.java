@@ -1,4 +1,4 @@
-package dev.milca;
+package dev.milca.mvc.controllers;
 
 /**
  * Hello world!
