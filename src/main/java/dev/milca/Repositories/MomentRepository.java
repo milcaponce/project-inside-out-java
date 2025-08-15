@@ -1,6 +1,6 @@
 package dev.milca.Repositories;
 
-import dev.milca.mvc.model.Emotion;
+import dev.milca.mvc.model.EmotionEnum;
 import dev.milca.mvc.model.Moment;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,7 +62,7 @@ public class MomentRepository {
     public List<Moment> filterMomentsByEmotion(String emotion) {
         List<Moment> filteredList = new ArrayList<>();
 
-        Emotion searchEmotion = Emotion.valueOf(emotion.toUpperCase());
+        EmotionEnum searchEmotion = EmotionEnum.valueOf(emotion.toUpperCase());
 
         for (Moment moment : this.moments) {
             if (moment.getEmotion().equals(searchEmotion)) {
