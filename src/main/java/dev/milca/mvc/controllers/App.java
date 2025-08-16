@@ -36,7 +36,7 @@ public final class App {
                     listMoments();
                     break;
                 case "3":
-                    System.out.println("Funcionalidad de eliminar momento pendiente.");
+                    deleteMoment();
                     break;
                 case "4":
                     System.out.println("Funcionalidad de filtrar pendiente.");
@@ -109,6 +109,7 @@ public final class App {
         System.out.println("El momento ha sido guardado correctamente.");
     }
 
+    //Muestra la lista
     private void listMoments() {
         System.out.println("VER TODOS LOS MOMENTOS");
         List<Moment> allMoments = momentRepository.getMoments();
@@ -125,6 +126,31 @@ public final class App {
                 System.out.println("Resumen: " + moment.getDescription());
             }
             System.out.println("--------------------");
+        }
+    }
+
+    //Eliminar momento
+    private void deleteMoment() {
+        System.out.println("ELIMINAR UN MOMENTO");
+        listMoments();
+
+        if (momentRepository.getMoments().isEmpty()) {
+            return;
+        }
+
+        System.out.print("Introduce el ID del momento que quieres eliminar: ");
+
+        try {
+            int idToDelete = Integer.parseInt(scanner.nextLine());
+            boolean wasDeleted = momentRepository.deleteMomentById(idToDelete);
+
+            if (wasDeleted) {
+                System.out.println("El momento ha sido eliminado correctamente.");
+            } else {
+                System.out.println("No se encontró ningún momento con ese ID.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Entrada no válida. Por favor, introduce un número.");
         }
     }
 }
