@@ -39,7 +39,7 @@ public final class App {
                     deleteMoment();
                     break;
                 case "4":
-                    System.out.println("Funcionalidad de filtrar pendiente.");
+                    filterMoments();
                     break;
                 case "5":
                     System.out.println("Gracias por usar Mi Diario! Hasta luego!");
@@ -66,6 +66,7 @@ public final class App {
     private void addMoment() {
         System.out.println("AÑADIR NUEVO MOMENTO");
 
+    //Capturar título    
         String title = "";
         do {
             System.out.print("Título (no puede estar vacío): ");
@@ -103,6 +104,7 @@ public final class App {
             }
         }
 
+    //Se genera el ID    
         Moment newMoment = new Moment(0, title, description, emotion, date);
         momentRepository.addMoment(newMoment);
 
@@ -151,6 +153,40 @@ public final class App {
             }
         } catch (NumberFormatException e) {
             System.out.println("Entrada no válida. Por favor, introduce un número.");
+        }
+    }
+
+    //Filtrar momentos
+    private void filterMoments() {
+        System.out.println("FILTRAR MOMENTOS POR EMOCIÓN");
+
+        //capturar emoción para filtro
+        EmotionEnum emotionFilter = null;
+        while (emotionFilter == null) {
+            System.out.print("Emoción para filtrar (ALEGRIA, TRISTEZA, ENOJO, CALMA, MIEDO, ASCO): ");
+            String emotionInput = scanner.nextLine().trim().toUpperCase();
+            try {
+                emotionFilter = EmotionEnum.valueOf(emotionInput);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Emoción no válida. Por favor, elija una de la lista.");
+            }
+        }
+
+        //Llamar al repositorio para obtener la lista
+        List<Moment> filteredMoments = momentRepository.filterMomentsByEmotion(emotionFilter.name());
+        if (filteredMoments.isEmpty()) {
+            System.out.println("No se encontraron momentos con la emoción '" + emotionFilter + "'.");
+        } else {
+            System.out.println("RESULTADO DEL FILTRO");
+            for (Moment moment : filteredMoments) {
+                System.out.println("--------------------");
+                System.out.println("ID: " + moment.getId());
+                System.out.println("Título: " + moment.getTitle());
+                System.out.println("Emoción: " + moment.getEmotion());
+                System.out.println("Fecha: " + moment.getDate());
+                System.out.println("Resumen: " + moment.getDescription());
+            }
+            System.out.println("--------------------");
         }
     }
 }
