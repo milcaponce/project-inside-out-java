@@ -1,6 +1,6 @@
-###Project Inside Out
+### Project Inside Out
 
-Descripción
+## Descripción
 Mi Diario es una aplicación de consola desarrollada en Java, la cual permite al usuario gestionar los momentos vividos. Cada momento tiene un identificador, un título, una descripción, una emoción asignada, y las fechas de cuándo ocurrió, cuándo fue creado y cuándo fue modificado. El usuario puede interactuar con el programa a través de un menú de consola para añadir, listar, eliminar y filtrar momentos.
 
 Pre-requisitos
@@ -31,6 +31,7 @@ Para ejecutar los tests unitarios del proyecto y verificar el correcto funcionam
 mvn test
 
 Captura de la cobertura de código:
+
 <img width="493" height="465" alt="image" src="https://github.com/user-attachments/assets/18c8da78-8e50-4046-adc1-db0183715d04" />
 
 
