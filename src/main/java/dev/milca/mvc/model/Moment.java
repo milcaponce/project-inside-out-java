@@ -1,76 +1,104 @@
 package dev.milca.mvc.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Moment {
     private int id;
     private String title;
     private String description;
     private EmotionEnum emotion;
-    private LocalDate date;
-    private LocalDate creationDate;
-    private LocalDate modificationDate;
+    private MomentTypeEnum momentType;
+    private LocalDate momentDate;
+    private LocalDateTime creationDate;
+    private LocalDateTime modificationDate;
 
-    public Moment (int id, String title, String description, EmotionEnum emotion, LocalDate date) {
+    public Moment (String title, String description, EmotionEnum emotion, MomentTypeEnum momentType, LocalDate momentDate) {
+        this.title = title;
+        this.description = description;
+        this.emotion = emotion;
+        this.momentType = momentType;
+        this.momentDate = momentDate;
+        this.creationDate = LocalDateTime.now();
+        this.modificationDate = LocalDateTime.now();
+    }
+
+    public Moment(int id, String title, String description, EmotionEnum emotion, MomentTypeEnum momentType, LocalDate momentDate) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.emotion = emotion;
-        this.date = date;
-        this.creationDate = LocalDate.now();
-        this.modificationDate = LocalDate.now();
+        this.momentType = momentType;
+        this.momentDate = momentDate;
+        this.creationDate = LocalDateTime.now();
+        this.modificationDate = LocalDateTime.now();
     }
 
+
+    // Getters
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-        this.modificationDate = LocalDate.now();
     }
 
     public EmotionEnum getEmotion() {
         return emotion;
     }
-
-    public void setEmotion (EmotionEnum emotion) {
-        this.emotion = emotion;
-        this.modificationDate = LocalDate.now();
+        
+    public MomentTypeEnum getMomentType() {
+        return momentType;
+    }
+    
+    public LocalDate getMomentDate() {
+        return momentDate;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-        this.modificationDate = LocalDate.now();
-    }
-
-    public LocalDate getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public LocalDate getModificationDate() {
+    public LocalDateTime getModificationDate() {
         return modificationDate;
     }
+
+    // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+        this.modificationDate = LocalDateTime.now();
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+        this.modificationDate = LocalDateTime.now();
+    }
+
+    public void setEmotion(EmotionEnum emotion) {
+        this.emotion = emotion;
+        this.modificationDate = LocalDateTime.now();
+    }
+
+    public void setMomentType(MomentTypeEnum momentType) {
+        this.momentType = momentType;
+        this.modificationDate = LocalDateTime.now();
+    }
+    
+    public void setMomentDate(LocalDate momentDate) {
+        this.momentDate = momentDate;
+        this.modificationDate = LocalDateTime.now();
+    }
+
+
 
     @Override
     public String toString() {
@@ -79,7 +107,8 @@ public class Moment {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", emotion='" + emotion + '\'' +
-                ", date=" + date +
+                ",momentType=" + momentType +
+                ", momentDate=" + momentDate +
                 ", creationDate=" + creationDate +
                 ", modificationDate=" + modificationDate +
                 '}';

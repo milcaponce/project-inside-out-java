@@ -2,10 +2,12 @@ package dev.milca.Repositories;
 
 import dev.milca.mvc.model.EmotionEnum;
 import dev.milca.mvc.model.Moment;
+import dev.milca.mvc.model.MomentTypeEnum;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MomentRepository {
     private List<Moment> moments;
@@ -32,9 +34,9 @@ public class MomentRepository {
 
     //Retorna la lista
     public List<Moment> getOrderedMomentsByDate() {
-        List<Moment> orderedList = new ArrayList<>(this.moments);
+        List<Moment> orderedList = new ArrayList <> (this.moments);
 
-        Collections.sort(orderedList, Comparator.comparing(Moment::getDate));
+        Collections.sort(orderedList, Comparator.comparing (Moment::getMomentDate));
         
         return orderedList; 
     }
@@ -60,15 +62,20 @@ public class MomentRepository {
 
     //Filtrar la lista
     public List<Moment> filterMomentsByEmotion(String emotion) {
-        List<Moment> filteredList = new ArrayList<>();
-
-        EmotionEnum searchEmotion = EmotionEnum.valueOf(emotion.toUpperCase());
-
-        for (Moment moment : this.moments) {
-            if (moment.getEmotion().equals(searchEmotion)) {
-                filteredList.add(moment);
-            }
+        try {
+            EmotionEnum searchEmotion = EmotionEnum.valueOf(emotion.toUpperCase());
+            return moments.stream()
+                .filter(moment -> moment.getEmotion().equals(searchEmotion))
+                .collect(Collectors.toList());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Emoción no válida.");
+            return new ArrayList<>();
         }
-        return filteredList;
+    }
+
+    public List<Moment> filterMomentsByType(MomentTypeEnum momentType) {
+        return moments.stream()
+                .filter(moment -> moment.getMomentType().equals(momentType))
+                .collect(Collectors.toList());
     }
 }

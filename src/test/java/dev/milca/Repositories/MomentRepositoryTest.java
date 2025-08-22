@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import dev.milca.mvc.model.EmotionEnum;
 import dev.milca.mvc.model.Moment;
+import dev.milca.mvc.model.MomentTypeEnum;
 
 class MomentRepositoryTest {
     private MomentRepository momentRepository;
@@ -23,7 +24,7 @@ class MomentRepositoryTest {
 
     @Test
     void testAddMomentAndCheckSize() {
-        Moment moment = new Moment(0, "Título de Test", "Descripción de Test", EmotionEnum.ALEGRIA, LocalDate.now());
+        Moment moment = new Moment(0, "Título de Test", "Descripción de Test", EmotionEnum.ALEGRIA, MomentTypeEnum.BUENO, LocalDate.now());
 
         momentRepository.addMoment(moment);
 
@@ -35,7 +36,7 @@ class MomentRepositoryTest {
 
     @Test
     void testDeleteMomentById() {
-        Moment moment = new Moment(0, "Para eliminar", "Momento a ser eliminado", EmotionEnum.TRISTEZA, LocalDate.now());
+        Moment moment = new Moment(0, "Para eliminar", "Momento a ser eliminado", EmotionEnum.TRISTEZA, MomentTypeEnum.MALO, LocalDate.now());
         momentRepository.addMoment(moment);
         
         assertEquals(1, momentRepository.getMoments().size(), "La lista debería tener un momento para eliminar.");
@@ -57,9 +58,11 @@ class MomentRepositoryTest {
     
     @Test
     void testFilterMomentsByEmotion() {
-        momentRepository.addMoment(new Moment(0, "Día Feliz", "Un momento muy divertido", EmotionEnum.ALEGRIA, LocalDate.now()));
-        momentRepository.addMoment(new Moment(0, "Noticia triste", "Me siento triste porque...", EmotionEnum.TRISTEZA, LocalDate.now()));
-        momentRepository.addMoment(new Moment(0, "Otro día feliz", "Salida familiar al parque", EmotionEnum.ALEGRIA, LocalDate.now()));
+        momentRepository.addMoment(new Moment(0, "Día Feliz", "Un momento muy divertido", EmotionEnum.ALEGRIA, MomentTypeEnum.BUENO, LocalDate.now()));
+
+        momentRepository.addMoment(new Moment(0, "Noticia triste", "Me siento triste porque...", EmotionEnum.TRISTEZA, MomentTypeEnum.MALO, LocalDate.now()));
+        
+        momentRepository.addMoment(new Moment(0, "Otro día feliz", "Salida familiar al parque", EmotionEnum.ALEGRIA, MomentTypeEnum.BUENO, LocalDate.now()));
         
         List<Moment> filteredMoments = momentRepository.filterMomentsByEmotion(EmotionEnum.ALEGRIA.name());
         
