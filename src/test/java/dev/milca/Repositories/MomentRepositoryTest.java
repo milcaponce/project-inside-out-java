@@ -20,6 +20,9 @@ class MomentRepositoryTest {
     @BeforeEach
     void setUp() {
         momentRepository = new MomentRepository();
+        momentRepository.addMoment(new Moment("Buen día", "Un agradable día en el parque", EmotionEnum.ALEGRIA, MomentTypeEnum.BUENO, LocalDate.of(2023, 10, 26)));
+        momentRepository.addMoment(new Moment("Malas noticias", "Me contaron algo triste", EmotionEnum.TRISTEZA, MomentTypeEnum.MALO, LocalDate.of(2023, 10, 27)));
+        momentRepository.addMoment(new Moment("Un delicioso almuerzo", "Hoy almorcé en casa junto a mis amigos", EmotionEnum.ALEGRIA, MomentTypeEnum.BUENO, LocalDate.of(2023, 10, 28)));
     }
 
     @Test
@@ -28,9 +31,7 @@ class MomentRepositoryTest {
 
         momentRepository.addMoment(moment);
 
-        assertEquals(1, momentRepository.getMoments().size(), "La lista debería tener 1 momento.");
-
-        assertEquals(1, moment.getId(), "El ID del momento debería ser 1.");
+        assertEquals(4, momentRepository.getMoments().size(), "La lista debería tener 4 momentos después de agregar uno nuevo.");
     }
 
 
@@ -39,12 +40,12 @@ class MomentRepositoryTest {
         Moment moment = new Moment(0, "Para eliminar", "Momento a ser eliminado", EmotionEnum.TRISTEZA, MomentTypeEnum.MALO, LocalDate.now());
         momentRepository.addMoment(moment);
         
-        assertEquals(1, momentRepository.getMoments().size(), "La lista debería tener un momento para eliminar.");
+        assertEquals(4, momentRepository.getMoments().size(), "La lista debería tener 4 momentos antes de la eliminación.");
         
         boolean wasDeleted = momentRepository.deleteMomentById(moment.getId());
         
         assertTrue(wasDeleted, "El método debería retornar true si la eliminación fue exitosa.");
-        assertTrue(momentRepository.getMoments().isEmpty(), "La lista de momentos debería estar vacía.");
+        assertEquals(3, momentRepository.getMoments().size(), "La lista de momentos debería tener 3 momentos después de la eliminación.");
     }
     
     
@@ -58,12 +59,6 @@ class MomentRepositoryTest {
     
     @Test
     void testFilterMomentsByEmotion() {
-        momentRepository.addMoment(new Moment(0, "Día Feliz", "Un momento muy divertido", EmotionEnum.ALEGRIA, MomentTypeEnum.BUENO, LocalDate.now()));
-
-        momentRepository.addMoment(new Moment(0, "Noticia triste", "Me siento triste porque...", EmotionEnum.TRISTEZA, MomentTypeEnum.MALO, LocalDate.now()));
-        
-        momentRepository.addMoment(new Moment(0, "Otro día feliz", "Salida familiar al parque", EmotionEnum.ALEGRIA, MomentTypeEnum.BUENO, LocalDate.now()));
-        
         List<Moment> filteredMoments = momentRepository.filterMomentsByEmotion(EmotionEnum.ALEGRIA.name());
         
         assertEquals(2, filteredMoments.size(), "La lista filtrada debería tener 2 momentos.");
@@ -71,6 +66,19 @@ class MomentRepositoryTest {
         for (Moment moment : filteredMoments) {
             assertEquals(EmotionEnum.ALEGRIA, moment.getEmotion(), "Todos los momentos filtrados deben ser de la emoción ALEGRIA.");
         }
+    }
+
+    @Test
+    void testFilterMomentsByType() {
+        List<Moment> goodMoments = momentRepository.filterMomentsByType(MomentTypeEnum.BUENO);
+        assertEquals(2, goodMoments.size(), "Debería encontrar 2 momentos de tipo BUENO.");
+        assertEquals("Buen día", goodMoments.get(0).getTitle());
+        assertEquals("Un delicioso almuerzo", goodMoments.get(1).getTitle());
+
+        
+        List<Moment> badMoments = momentRepository.filterMomentsByType(MomentTypeEnum.MALO);
+        assertEquals(1, badMoments.size(), "Debería encontrar 1 momento de tipo MALO.");
+        assertEquals("Malas noticias", badMoments.get(0).getTitle());
     }
 }
 

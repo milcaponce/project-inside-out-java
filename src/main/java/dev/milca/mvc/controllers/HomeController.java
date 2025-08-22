@@ -69,6 +69,7 @@ public class HomeController {
         System.out.println("¿Qué emoción te provocó? (ALEGRIA, TRISTEZA, IRA, MIEDO, ASCO)");
         EmotionEnum emotion = EmotionEnum.valueOf(scanner.nextLine().toUpperCase());
         
+        
         // Pedir al usuario que especifique el tipo de momento
         System.out.println("¿Es este un momento bueno o malo? (BUENO/MALO)");
         MomentTypeEnum momentType = MomentTypeEnum.valueOf(scanner.nextLine().toUpperCase());

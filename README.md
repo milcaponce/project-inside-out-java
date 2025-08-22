@@ -32,6 +32,7 @@ mvn test
 
 Captura de la cobertura de código:
 ![Test](image.png)
+![alt text](image-1.png)
 
 Diagramas realizados:
 
